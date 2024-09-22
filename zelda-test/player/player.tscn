@@ -1,6 +1,7 @@
-[gd_scene load_steps=9 format=3 uid="uid://c0hkbu84dcksl"]
+[gd_scene load_steps=10 format=3 uid="uid://c0hkbu84dcksl"]
 
 [ext_resource type="Texture2D" uid="uid://cfa5mf5n8pbcl" path="res://assets/link.png" id="1_milxk"]
+[ext_resource type="Script" path="res://player/player.gd" id="1_t4shp"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_pcw3g"]
 atlas = ExtResource("1_milxk")
@@ -63,8 +64,8 @@ animations = [{
 }]
 
 [node name="player" type="CharacterBody2D"]
+script = ExtResource("1_t4shp")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 sprite_frames = SubResource("SpriteFrames_npmen")
-animation = &"walk_up"
-frame_progress = 0.0385079
+animation = &"walk_down"

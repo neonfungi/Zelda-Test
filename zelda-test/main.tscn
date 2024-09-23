@@ -1,13 +1,25 @@
-[gd_scene load_steps=4 format=3 uid="uid://c612nbecb83lj"]
+[gd_scene load_steps=8 format=3 uid="uid://c612nbecb83lj"]
 
+[ext_resource type="Script" path="res://main.gd" id="1_c5fk1"]
 [ext_resource type="PackedScene" uid="uid://c0hkbu84dcksl" path="res://player/player.tscn" id="1_t4ipj"]
 [ext_resource type="PackedScene" uid="uid://882bo1vji1bc" path="res://dungeon/dungeonRoom.tscn" id="2_70lbp"]
 [ext_resource type="Script" path="res://camera_2d.gd" id="3_evjni"]
+[ext_resource type="Script" path="res://map_control.gd" id="5_fbmkp"]
+[ext_resource type="Texture2D" uid="uid://dxebhactmx6en" path="res://assets/block_map_test.png" id="6_q3o24"]
+[ext_resource type="Texture2D" uid="uid://b4143cawdr1kt" path="res://assets/map_test_room-in.png" id="7_wvmj4"]
 
 [node name="main" type="Node2D"]
+script = ExtResource("1_c5fk1")
 
 [node name="player" parent="." instance=ExtResource("1_t4ipj")]
 position = Vector2(114, 110)
+
+[node name="Camera2D" type="Camera2D" parent="."]
+position = Vector2(128, 120)
+position_smoothing_enabled = true
+editor_draw_limits = true
+editor_draw_drag_margin = true
+script = ExtResource("3_evjni")
 
 [node name="Dungeon" type="Node2D" parent="."]
 
@@ -17,21 +29,41 @@ position = Vector2(128, 152)
 [node name="DungeonRoom2" parent="Dungeon" instance=ExtResource("2_70lbp")]
 position = Vector2(128, -24)
 
-[node name="Camera2D" type="Camera2D" parent="Dungeon"]
-position = Vector2(128, 120)
-position_smoothing_enabled = true
-editor_draw_limits = true
-editor_draw_drag_margin = true
-script = ExtResource("3_evjni")
+[node name="DungeonRoom3" parent="Dungeon" instance=ExtResource("2_70lbp")]
+position = Vector2(384, 152)
+
+[node name="DungeonRoom4" parent="Dungeon" instance=ExtResource("2_70lbp")]
+position = Vector2(384, 328)
+
+[node name="DungeonRoom5" parent="Dungeon" instance=ExtResource("2_70lbp")]
+position = Vector2(128, 328)
 
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
 
 [node name="HUD" type="Control" parent="CanvasLayer"]
 layout_mode = 3
-anchors_preset = 0
+anchor_right = 0.204
+anchor_bottom = 0.191
+offset_right = -52.224
+offset_bottom = -45.84
 
 [node name="ColorRect" type="ColorRect" parent="CanvasLayer/HUD"]
 layout_mode = 0
 offset_right = 256.0
 offset_bottom = 64.0
 color = Color(0, 0, 0, 1)
+
+[node name="MapControl" type="Control" parent="CanvasLayer"]
+top_level = true
+layout_mode = 3
+anchor_left = 0.25
+anchor_top = 0.233
+anchor_right = 0.25
+anchor_bottom = 0.233
+offset_left = -32.0
+offset_top = -15.92
+offset_right = -32.0
+offset_bottom = -15.92
+script = ExtResource("5_fbmkp")
+room_texture = ExtResource("6_q3o24")
+in_room_texture = ExtResource("7_wvmj4")

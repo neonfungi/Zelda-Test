@@ -30,7 +30,7 @@ func get_input() -> void:
 	# Normalize the direction to avoid faster diagonal movement
 	direction = direction.normalized()
 
-# Move the player using CharacterBody2D's move_and_slide
+	# Move the player using CharacterBody2D's move_and_slide
 	velocity = direction * speed
 	move_and_slide()
 

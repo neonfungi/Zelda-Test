@@ -1,8 +1,37 @@
-[gd_scene load_steps=2 format=3 uid="uid://c612nbecb83lj"]
+[gd_scene load_steps=4 format=3 uid="uid://c612nbecb83lj"]
 
 [ext_resource type="PackedScene" uid="uid://c0hkbu84dcksl" path="res://player/player.tscn" id="1_t4ipj"]
+[ext_resource type="PackedScene" uid="uid://882bo1vji1bc" path="res://dungeon/dungeonRoom.tscn" id="2_70lbp"]
+[ext_resource type="Script" path="res://camera_2d.gd" id="3_evjni"]
 
 [node name="main" type="Node2D"]
 
 [node name="player" parent="." instance=ExtResource("1_t4ipj")]
 position = Vector2(114, 110)
+
+[node name="Dungeon" type="Node2D" parent="."]
+
+[node name="DungeonRoom" parent="Dungeon" instance=ExtResource("2_70lbp")]
+position = Vector2(128, 152)
+
+[node name="DungeonRoom2" parent="Dungeon" instance=ExtResource("2_70lbp")]
+position = Vector2(128, -24)
+
+[node name="Camera2D" type="Camera2D" parent="Dungeon"]
+position = Vector2(128, 120)
+position_smoothing_enabled = true
+editor_draw_limits = true
+editor_draw_drag_margin = true
+script = ExtResource("3_evjni")
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+
+[node name="HUD" type="Control" parent="CanvasLayer"]
+layout_mode = 3
+anchors_preset = 0
+
+[node name="ColorRect" type="ColorRect" parent="CanvasLayer/HUD"]
+layout_mode = 0
+offset_right = 256.0
+offset_bottom = 64.0
+color = Color(0, 0, 0, 1)

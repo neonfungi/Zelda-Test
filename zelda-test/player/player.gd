@@ -44,6 +44,7 @@ func update_animation() -> void:
 			animated_sprite.play("walk_sideways")
 			animated_sprite.flip_h = direction.x < 0  # Flip sprite when moving left
 		elif direction.y != 0:
+			animated_sprite.flip_h = false
 			if direction.y > 0:
 				animated_sprite.play("walk_down")
 			else:

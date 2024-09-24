@@ -16,21 +16,8 @@ func _process(delta: float) -> void:
 
 # Function to get directional input from the player
 func get_input() -> void:
-	direction = Vector2.ZERO
-
-	if Input.is_action_pressed("ui_up"):
-		direction.y -= 1
-	elif Input.is_action_pressed("ui_down"):
-		direction.y += 1
-	if Input.is_action_pressed("ui_left"):
-		direction.x -= 1
-	elif Input.is_action_pressed("ui_right"):
-		direction.x += 1
-
-	# Normalize the direction to avoid faster diagonal movement
-	direction = direction.normalized()
-
-	# Move the player using CharacterBody2D's move_and_slide
+	direction = Input.get_vector("ui_left", "ui_right", "ui_up", "ui_down")
+	direction = direction.normalized() # Normalize direction for diagonal movement
 	velocity = direction * speed
 	move_and_slide()
 

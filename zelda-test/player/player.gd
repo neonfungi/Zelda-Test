@@ -3,36 +3,46 @@ extends CharacterBody2D
 # Movement variables
 @export var speed: float = 100.0
 
-# Direction vector
+enum {
+	MOVE,
+	ATTACK
+}
+
+var state = MOVE
 var direction: Vector2 = Vector2.ZERO
 
 # AnimatedSprite2D reference
-@onready var animated_sprite = $AnimatedSprite2D
+@onready var animationPlayer = $AnimationPlayer
+@onready var animationTree = $AnimationTree
+@onready var animationState = animationTree.get("parameters/playback")
 
-# Called every frame
-func _process(delta: float) -> void:
-	get_input()
-	update_animation()
+func _physics_process(delta: float) -> void:
+	match state:
+		MOVE:
+			move_state()
+		ATTACK:
+			attack_state()
 
-# Function to get directional input from the player
-func get_input() -> void:
+func move_state() -> void:
 	direction = Input.get_vector("ui_left", "ui_right", "ui_up", "ui_down")
 	direction = direction.normalized() # Normalize direction for diagonal movement
 	velocity = direction * speed
 	move_and_slide()
 
-# Function to update the player's animation based on movement direction
-func update_animation() -> void:
-	if direction == Vector2.ZERO:
-		animated_sprite.stop()  # Stop animation when not moving
+	if direction != Vector2.ZERO:
+		animationTree.set("parameters/Idle/blend_position", direction)
+		animationTree.set("parameters/Walk/blend_position", direction)
+		animationTree.set("parameters/Attack/blend_position", direction)
+		animationState.travel("Walk")
 	else:
-		if direction.x != 0:
-			# Play walk_sideways animation and flip for left movement
-			animated_sprite.play("walk_sideways")
-			animated_sprite.flip_h = direction.x < 0  # Flip sprite when moving left
-		elif direction.y != 0:
-			animated_sprite.flip_h = false
-			if direction.y > 0:
-				animated_sprite.play("walk_down")
-			else:
-				animated_sprite.play("walk_up")
+		animationState.travel("Idle")
+	
+	if Input.is_action_just_pressed("attack"):
+		state = ATTACK
+
+func attack_state() -> void:
+	velocity = Vector2.ZERO
+	animationState.travel("Attack")
+
+func attack_animation_finished():
+	state = MOVE

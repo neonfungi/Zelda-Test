@@ -9,12 +9,17 @@ enum {
 }
 
 var state = MOVE
-var direction: Vector2 = Vector2.ZERO
+var input_vector: Vector2 = Vector2.ZERO
+var knockback_vector = Vector2.DOWN
 
 # AnimatedSprite2D reference
 @onready var animationPlayer = $AnimationPlayer
 @onready var animationTree = $AnimationTree
 @onready var animationState = animationTree.get("parameters/playback")
+@onready var swordHitbox = $HitboxPivot/SwordHitbox
+
+func _ready() -> void:
+	swordHitbox.knockback_vector = knockback_vector
 
 func _physics_process(delta: float) -> void:
 	match state:
@@ -24,15 +29,18 @@ func _physics_process(delta: float) -> void:
 			attack_state()
 
 func move_state() -> void:
-	direction = Input.get_vector("ui_left", "ui_right", "ui_up", "ui_down")
-	direction = direction.normalized() # Normalize direction for diagonal movement
-	velocity = direction * speed
+	var input_vector = Vector2.ZERO
+	input_vector = Input.get_vector("ui_left", "ui_right", "ui_up", "ui_down")
+	input_vector = input_vector.normalized() # Normalize direction for diagonal movement
+	velocity = input_vector * speed
 	move_and_slide()
 
-	if direction != Vector2.ZERO:
-		animationTree.set("parameters/Idle/blend_position", direction)
-		animationTree.set("parameters/Walk/blend_position", direction)
-		animationTree.set("parameters/Attack/blend_position", direction)
+	if input_vector != Vector2.ZERO:
+		knockback_vector = input_vector
+		swordHitbox.knockback_vector = input_vector
+		animationTree.set("parameters/Idle/blend_position", input_vector)
+		animationTree.set("parameters/Walk/blend_position", input_vector)
+		animationTree.set("parameters/Attack/blend_position", input_vector)
 		animationState.travel("Walk")
 	else:
 		animationState.travel("Idle")

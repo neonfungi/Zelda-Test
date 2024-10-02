@@ -1,0 +1,10 @@
+[gd_scene load_steps=2 format=3 uid="uid://djp6mkeg4evat"]
+
+[ext_resource type="Script" path="res://dungeon/dungeonCamera.gd" id="1_43f02"]
+
+[node name="dungeonCamera" type="Camera2D"]
+position = Vector2(128, 120)
+position_smoothing_enabled = true
+editor_draw_limits = true
+editor_draw_drag_margin = true
+script = ExtResource("1_43f02")

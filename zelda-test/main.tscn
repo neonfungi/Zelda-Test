@@ -2,7 +2,7 @@
 
 [ext_resource type="PackedScene" uid="uid://c0hkbu84dcksl" path="res://player/player.tscn" id="1_t4ipj"]
 [ext_resource type="PackedScene" uid="uid://882bo1vji1bc" path="res://dungeon/dungeonRoom.tscn" id="2_70lbp"]
-[ext_resource type="Script" path="res://camera_2d.gd" id="3_evjni"]
+[ext_resource type="PackedScene" uid="uid://djp6mkeg4evat" path="res://dungeon/dungeonCamera.tscn" id="3_7sif2"]
 [ext_resource type="PackedScene" uid="uid://bomrvn73s54bp" path="res://enemies/keese.tscn" id="4_fk1ns"]
 
 [node name="main" type="Node2D"]
@@ -18,12 +18,7 @@ position = Vector2(128, 152)
 [node name="DungeonRoom2" parent="Dungeon" instance=ExtResource("2_70lbp")]
 position = Vector2(128, -24)
 
-[node name="Camera2D" type="Camera2D" parent="Dungeon"]
-position = Vector2(128, 120)
-position_smoothing_enabled = true
-editor_draw_limits = true
-editor_draw_drag_margin = true
-script = ExtResource("3_evjni")
+[node name="dungeonCamera" parent="Dungeon" instance=ExtResource("3_7sif2")]
 
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
 
@@ -42,35 +37,17 @@ color = Color(0, 0, 0, 1)
 [node name="keese" parent="Enemies" instance=ExtResource("4_fk1ns")]
 position = Vector2(96, 168)
 
-[node name="CollisionShape2D" parent="Enemies/keese/hurtbox" index="0"]
-debug_color = Color(0.993379, 0, 0.238465, 0.42)
-
-[node name="HealthLabel" parent="Enemies/keese" index="5"]
-scale = Vector2(0.541809, 0.541809)
-
 [node name="keese2" parent="Enemies" instance=ExtResource("4_fk1ns")]
 position = Vector2(192, 128)
-
-[node name="CollisionShape2D" parent="Enemies/keese2/hurtbox" index="0"]
-debug_color = Color(0.993379, 0, 0.238465, 0.42)
 
 [node name="Stats" parent="Enemies/keese2" index="3"]
 max_health = 5
 
-[node name="HealthLabel" parent="Enemies/keese2" index="5"]
-scale = Vector2(0.541809, 0.541809)
-
 [node name="keese3" parent="Enemies" instance=ExtResource("4_fk1ns")]
 position = Vector2(160, 176)
 
-[node name="CollisionShape2D" parent="Enemies/keese3/hurtbox" index="0"]
-debug_color = Color(0.993379, 0, 0.238465, 0.42)
-
 [node name="Stats" parent="Enemies/keese3" index="3"]
 max_health = 4
-
-[node name="HealthLabel" parent="Enemies/keese3" index="5"]
-scale = Vector2(0.541809, 0.541809)
 
 [editable path="Enemies/keese"]
 [editable path="Enemies/keese/hurtbox"]

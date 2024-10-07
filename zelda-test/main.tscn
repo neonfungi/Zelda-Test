@@ -2,7 +2,7 @@
 
 [ext_resource type="PackedScene" uid="uid://c0hkbu84dcksl" path="res://player/player.tscn" id="1_t4ipj"]
 [ext_resource type="PackedScene" uid="uid://882bo1vji1bc" path="res://dungeon/dungeonRoom.tscn" id="2_70lbp"]
-[ext_resource type="Script" path="res://camera_2d.gd" id="3_evjni"]
+[ext_resource type="Script" path="res://dungeon/dungeonCamera.gd" id="3_evjni"]
 [ext_resource type="PackedScene" uid="uid://bomrvn73s54bp" path="res://enemies/keese.tscn" id="4_fk1ns"]
 [ext_resource type="Texture2D" uid="uid://b3h5h2bw8o473" path="res://assets/Proto_Tileset_Dungeon.png" id="4_g3u5m"]
 

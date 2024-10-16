@@ -1298,8 +1298,8 @@ radius = 7.0
 height = 15.0
 
 [node name="player" type="CharacterBody2D"]
+process_mode = 1
 visibility_layer = 2
-z_index = 1
 collision_layer = 2
 script = ExtResource("1_t4shp")
 

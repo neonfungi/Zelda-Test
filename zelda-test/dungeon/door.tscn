@@ -1,0 +1,18 @@
+[gd_scene load_steps=3 format=3 uid="uid://cewqkf210o7f"]
+
+[ext_resource type="Script" path="res://dungeon/door.gd" id="1_eksgn"]
+[ext_resource type="Texture2D" uid="uid://csfxg0gncelfg" path="res://assets/Proto_Tileset_Dungeon-Doors-test.png" id="2_10fyp"]
+
+[node name="Door" type="StaticBody2D"]
+collision_mask = 2
+script = ExtResource("1_eksgn")
+door_state = 1
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture = ExtResource("2_10fyp")
+hframes = 5
+frame = 1
+region_enabled = true
+region_rect = Rect2(0, 0, 160, 32)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]

@@ -1,42 +1,94 @@
-[gd_scene load_steps=5 format=3 uid="uid://cip1aps3cx8q2"]
+[gd_scene load_steps=9 format=3 uid="uid://cip1aps3cx8q2"]
 
+[ext_resource type="Script" path="res://testing_room.gd" id="1_5oe5h"]
 [ext_resource type="PackedScene" uid="uid://882bo1vji1bc" path="res://dungeon/dungeonRoom.tscn" id="1_fhvy3"]
 [ext_resource type="PackedScene" uid="uid://djp6mkeg4evat" path="res://dungeon/dungeonCamera.tscn" id="2_hxuig"]
 [ext_resource type="PackedScene" uid="uid://bomrvn73s54bp" path="res://enemies/keese.tscn" id="3_euflv"]
 [ext_resource type="PackedScene" uid="uid://c0hkbu84dcksl" path="res://player/player.tscn" id="4_xicgy"]
+[ext_resource type="Texture2D" uid="uid://i3tvm3xskhx0" path="res://misc/TLoZ_Inventory.png" id="5_bog8l"]
+[ext_resource type="Script" path="res://game_ui.gd" id="6_e0k47"]
+[ext_resource type="Script" path="res://life_meter.gd" id="8_s7736"]
 
 [node name="testingRoom" type="Node2D"]
+process_mode = 3
+y_sort_enabled = true
+script = ExtResource("1_5oe5h")
 
 [node name="Dungeon" type="Node2D" parent="."]
 
 [node name="DungeonRoom" parent="Dungeon" instance=ExtResource("1_fhvy3")]
-position = Vector2(128, 88)
+position = Vector2(128, 152)
+door_up_state = 1
+door_left_state = 1
 
 [node name="DungeonRoom2" parent="Dungeon" instance=ExtResource("1_fhvy3")]
-position = Vector2(128, -88)
+position = Vector2(128, -24)
+door_down_state = 1
+door_left_state = 4
+
+[node name="DungeonRoom3" parent="Dungeon" instance=ExtResource("1_fhvy3")]
+position = Vector2(-128, 152)
+door_up_state = 1
+door_down_state = 2
+door_left_state = 3
+door_right_state = 1
+
+[node name="DungeonRoom4" parent="Dungeon" instance=ExtResource("1_fhvy3")]
+position = Vector2(-128, -24)
+door_down_state = 1
+door_right_state = 4
 
 [node name="dungeonCamera" parent="Dungeon" instance=ExtResource("2_hxuig")]
-position = Vector2(128, 56)
 
 [node name="Enemies" type="Node2D" parent="."]
 
 [node name="keese" parent="Enemies" instance=ExtResource("3_euflv")]
-position = Vector2(63, 82)
+position = Vector2(63, 122)
 
 [node name="keese2" parent="Enemies" instance=ExtResource("3_euflv")]
-position = Vector2(192, 74)
+position = Vector2(192, 181)
 
 [node name="Stats" parent="Enemies/keese2" index="3"]
 max_health = 5
 
 [node name="keese3" parent="Enemies" instance=ExtResource("3_euflv")]
-position = Vector2(138, 114)
+position = Vector2(78, 181)
 
 [node name="Stats" parent="Enemies/keese3" index="3"]
 max_health = 4
 
 [node name="player" parent="." instance=ExtResource("4_xicgy")]
-position = Vector2(128, 49)
+position = Vector2(116, 165)
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+layer = 0
+
+[node name="Game_UI" type="Control" parent="CanvasLayer"]
+process_mode = 3
+top_level = true
+layout_mode = 3
+anchors_preset = 0
+offset_top = -176.0
+offset_right = 256.0
+offset_bottom = 64.0
+script = ExtResource("6_e0k47")
+
+[node name="ColorRect" type="ColorRect" parent="CanvasLayer/Game_UI"]
+layout_mode = 0
+offset_right = 256.0
+offset_bottom = 240.0
+color = Color(0, 0, 0, 1)
+
+[node name="Sprite2D" type="Sprite2D" parent="CanvasLayer/Game_UI"]
+position = Vector2(128, 120)
+texture = ExtResource("5_bog8l")
+
+[node name="LifeMeter" type="GridContainer" parent="CanvasLayer/Game_UI"]
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 40.0
+columns = 8
+script = ExtResource("8_s7736")
 
 [editable path="Enemies/keese"]
 [editable path="Enemies/keese/hurtbox"]

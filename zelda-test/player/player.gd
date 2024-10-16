@@ -3,10 +3,7 @@ extends CharacterBody2D
 # Movement variables
 @export var speed: float = 100.0
 
-enum {
-	MOVE,
-	ATTACK
-}
+enum {MOVE, ATTACK}
 
 var state = MOVE
 var input_vector: Vector2 = Vector2.ZERO
@@ -21,7 +18,7 @@ var knockback_vector = Vector2.DOWN
 func _ready() -> void:
 	swordHitbox.knockback_vector = knockback_vector
 
-func _physics_process(delta: float) -> void:
+func _physics_process(_delta: float) -> void:
 	match state:
 		MOVE:
 			move_state()
@@ -29,7 +26,6 @@ func _physics_process(delta: float) -> void:
 			attack_state()
 
 func move_state() -> void:
-	var input_vector = Vector2.ZERO
 	input_vector = Input.get_vector("ui_left", "ui_right", "ui_up", "ui_down")
 	input_vector = input_vector.normalized() # Normalize direction for diagonal movement
 	velocity = input_vector * speed
